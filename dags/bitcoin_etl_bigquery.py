@@ -7,6 +7,8 @@ from datetime import timedelta
 import pendulum
 import requests
 import pandas as pd
+import time
+import random
 
 # We'll use the hook only to fetch application credentials from your Airflow GCP connection
 from airflow.providers.google.cloud.hooks.bigquery import BigQueryHook
@@ -106,6 +108,7 @@ def fetch_and_to_gbq():
     schedule="0 0 * * *",  # daily at 00:00 UTC
     start_date=pendulum.datetime(2025, 9, 17, tz="UTC"),
     catchup=True,
+    apache-airflow-providers-google
     owner_links={
         "Alex Lopes": "mailto:alexlopespereira@gmail.com",
         "Open in Cloud IDE": "https://cloud.astronomer.io/cm3webulw15k701npm2uhu77t/cloud-ide/cm42rbvn10lqk01nlco70l0b8/cm44gkosq0tof01mxajutk86g",
