@@ -4,7 +4,6 @@ from __future__ import annotations
 from airflow.decorators import dag, task
 from airflow.operators.python import get_current_context
 from datetime import timedelta
-from dateutil.relativedelta import relativedelta 
 import pendulum
 import requests
 import pandas as pd
@@ -104,7 +103,7 @@ def fetch_and_to_gbq():
 
 @dag(
     default_args=DEFAULT_ARGS,
-    schedule="0 0, 8, 16 * * *",  # daily at 00:00 UTC
+    schedule=timedelta(hours=8),
     start_date=pendulum.datetime(2025, 3, 25, tz="UTC"),
     catchup=True,
     max_active_runs=1,
