@@ -34,8 +34,8 @@ def fetch_and_to_gbq():
     ctx = get_current_context()
 
     # "Yesterday" window: [data_interval_start - 1 day, data_interval_start)
-    end_time = pendulum.now("UTC")
-    start_time = end_time - relativedelta(months=6)
+    end_time = ctx["data_interval_end"]
+    start_time = ctx["data_interval_start"]
     print(f"[UTC] target window: {start_time} -> {end_time}")
 
     start_s = int(start_time.timestamp())   # CoinGecko expects seconds
@@ -104,8 +104,8 @@ def fetch_and_to_gbq():
 
 @dag(
     default_args=DEFAULT_ARGS,
-    schedule="0 0 * * *",  # daily at 00:00 UTC
-    start_date=pendulum.datetime(2025, 9, 17, tz="UTC"),
+    schedule="0 0, 8, 16 * * *",  # daily at 00:00 UTC
+    start_date=pendulum.datetime(2025, 3, 25, tz="UTC"),
     catchup=True,
     max_active_runs=1,
     owner_links={
