@@ -34,7 +34,7 @@ def fetch_and_to_gbq():
 
     # "Yesterday" window: [data_interval_start - 1 day, data_interval_start)
     end_time = ctx["data_interval_end"]
-    start_time = ctx["data_interval_start"]
+    start_time = end_time - timedelta(days=10)
     print(f"[UTC] target window: {start_time} -> {end_time}")
 
     start_s = int(start_time.timestamp())   # CoinGecko expects seconds
