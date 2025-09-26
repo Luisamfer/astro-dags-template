@@ -105,7 +105,7 @@ def fetch_and_to_gbq():
 @dag(
     default_args=DEFAULT_ARGS,
     schedule=timedelta(hours=8),
-    start_date=pendulum.datetime(2025, 9, 17, tz="UTC"),
+    start_date=pendulum.datetime(2025, 3, 25, tz="UTC"),
     catchup=True,
     max_active_runs=1,
     owner_links={
