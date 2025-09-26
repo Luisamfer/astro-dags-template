@@ -4,6 +4,7 @@ from __future__ import annotations
 from airflow.decorators import dag, task
 from airflow.operators.python import get_current_context
 from datetime import timedelta
+from dateutil.relativedelta import relativedelta 
 import pendulum
 import requests
 import pandas as pd
@@ -33,8 +34,8 @@ def fetch_and_to_gbq():
     ctx = get_current_context()
 
     # "Yesterday" window: [data_interval_start - 1 day, data_interval_start)
-    end_time = ctx["data_interval_start"]
-    start_time = end_time - timedelta(days=1)
+    end_time = pendulum.now("UTC")
+    start_time = end_time - relativedelta(months=6)
     print(f"[UTC] target window: {start_time} -> {end_time}")
 
     start_s = int(start_time.timestamp())   # CoinGecko expects seconds
